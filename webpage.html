@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greetings Page</title>
+    <title>Poetic Click Game</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -11,67 +11,93 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #84fab0, #8fd3f4);
+            background: linear-gradient(to bottom right, #f8cdda, #1d2b64);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            color: #333;
+            color: #fff;
+            position: relative;
         }
 
         h1 {
             font-size: 3rem;
-            color: #2C3E50;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
         }
 
-        p {
-            font-size: 1.5rem;
-            margin: 20px 0;
-            color: #34495E;
-        }
-
-        .button {
-            background-color: #2980b9;
+        #gameButton {
+            background-color: #ff4757;
             color: white;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 20px 40px;
+            font-size: 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #3498db;
-        }
-
-        .footer {
             position: absolute;
-            bottom: 20px;
-            font-size: 0.8rem;
-            color: #555;
+            transition: transform 0.2s;
         }
 
-        .footer a {
-            color: #2980b9;
-            text-decoration: none;
+        #gameButton:hover {
+            transform: scale(1.1);
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        #poeticText {
+            font-size: 1.5rem;
+            position: absolute;
+            bottom: 50px;
+            animation: fade 5s infinite;
+        }
+
+        @keyframes fade {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>Hello, Welcome to My Creative Page!</h1>
-    <p>This is a simple yet beautiful greetings page hosted on GitHub Pages.</p>
-    <button class="button" onclick="alert('Thank you for visiting!')">Click Me!</button>
-    <div class="footer">
-        <p>Created with ❤️ by Your Name</p>
-        <p><a href="https://github.com" target="_blank">Visit my GitHub</a></p>
-    </div>
+    <h1>Catch the Poetry!</h1>
+    <button id="gameButton">Click Me!</button>
+    <div id="poeticText">Poetry is the music of the soul.</div>
+
+    <script>
+        const phrases = [
+            "Life is a beautiful journey.",
+            "The night sky is a canvas of dreams.",
+            "Stars are the whispers of the universe.",
+            "In every drop of rain, there's a story.",
+            "Love is the bridge between two hearts.",
+            "The wind sings secrets of the past.",
+            "Hope is the anchor of the soul."
+        ];
+
+        const gameButton = document.getElementById('gameButton');
+        const poeticText = document.getElementById('poeticText');
+
+        // Move the button randomly every second
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            gameButton.style.left = x + 'px';
+            gameButton.style.top = y + 'px';
+        }
+
+        // Change poetic text randomly every 5 seconds
+        function changePoeticText() {
+            const randomIndex = Math.floor(Math.random() * phrases.length);
+            poeticText.textContent = phrases[randomIndex];
+        }
+
+        // Event listener for button clicks
+        gameButton.addEventListener('click', () => {
+            alert('You caught me!');
+            moveButton();
+        });
+
+        // Initialize the game
+        setInterval(moveButton, 1000);
+        setInterval(changePoeticText, 5000);
+    </script>
 </body>
 </html>
-
