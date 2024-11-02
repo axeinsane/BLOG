@@ -3,12 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Name</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>My Writing Portfolio</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h2 {
+            color: #ff595e;
+        }
+
+        #new-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        #new-content-btn {
+            background-color: #1982c4;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #new-content-btn:hover {
+            background-color: #1261a0;
+        }
+
+        /* Form Styling */
+        #new-content-form {
+            display: none; /* Hidden initially */
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 80%;
+            max-width: 400px;
+            margin-top: 1rem;
+        }
+
+        #new-content-form input, 
+        #new-content-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        #new-content-form button {
+            background-color: #06d6a0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #new-content-form button:hover {
+            background-color: #05b484;
+        }
+
+        /* Content Card Styling */
+        .content-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-card h3 {
+            color: #1982c4;
+        }
+
+        /* Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Your Website Title</h1>
+        <h1>My Writing Portfolio</h1>
         <nav>
             <ul>
                 <li><a href="#reviews">Reviews</a></li>
@@ -17,21 +143,77 @@
             </ul>
         </nav>
     </header>
+
     <main>
-        <!-- Content sections here -->
-        <section id="reviews"> <!-- Your review section here --> </section>
-        <section id="stories"> <!-- Your stories section here --> </section>
-        <section id="blogs"> <!-- Your blogs section here --> </section>
+        <section id="reviews">
+            <h2>Reviews</h2>
+            <p>Your reviews will appear here...</p>
+        </section>
+        
+        <section id="stories">
+            <h2>Short Stories</h2>
+            <p>Your stories will appear here...</p>
+        </section>
+        
+        <section id="blogs">
+            <h2>Blogs</h2>
+            <p>Your blogs will appear here...</p>
+        </section>
+        
         <section id="new-content">
             <button id="new-content-btn">+ Add New Content</button>
             <form id="new-content-form">
-                <input type="text" id="title" placeholder="Title">
-                <input type="text" id="author" placeholder="Your Name">
-                <textarea id="content" placeholder="Write your story here..."></textarea>
+                <input type="text" id="title" placeholder="Title" required>
+                <input type="text" id="author" placeholder="Your Name" required>
+                <textarea id="content" placeholder="Write your content here..." required></textarea>
                 <button type="submit">Post</button>
             </form>
         </section>
     </main>
-    <footer>© 2024 Your Name</footer>
+
+    <footer>© 2024 My Name</footer>
+
+    <script>
+        // JavaScript for toggling the form visibility
+        const newContentBtn = document.getElementById("new-content-btn");
+        const newContentForm = document.getElementById("new-content-form");
+
+        newContentBtn.addEventListener("click", () => {
+            if (newContentForm.style.display === "none" || newContentForm.style.display === "") {
+                newContentForm.style.display = "flex"; // Show the form
+            } else {
+                newContentForm.style.display = "none"; // Hide the form
+            }
+        });
+
+        // JavaScript for handling form submission
+        newContentForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Stop the form from reloading the page
+
+            // Get input values
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const content = document.getElementById("content").value;
+
+            // Create a new content card
+            const newContentCard = document.createElement("div");
+            newContentCard.classList.add("content-card");
+
+            newContentCard.innerHTML = `
+                <h3>${title}</h3>
+                <p><strong>By:</strong> ${author}</p>
+                <p>${content}</p>
+            `;
+
+            // Add the new content to the reviews section (you can change this to another section if needed)
+            document.getElementById("reviews").appendChild(newContentCard);
+
+            // Clear the form fields
+            newContentForm.reset();
+
+            // Optionally hide the form again
+            newContentForm.style.display = "none";
+        });
+    </script>
 </body>
 </html>
